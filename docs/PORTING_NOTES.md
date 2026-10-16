@@ -1,0 +1,53 @@
+# Porting notes — deviations from the SDL Asylum C code
+
+Every intentional difference from `reference/sdl-asylum` is listed here with its reason.
+Rule of thumb: game logic is ported 1:1 (including quirks that affect gameplay feel);
+memory-safety bugs and SDL-port-specific defects are fixed according to the most plausible original
+intent.
+
+| # | C location | C behaviour | Port | Reason |
+|---|---|---|---|---|
+| 1 | alien.c `headonroof` | `dodgypointer->y = (random()&(1<<9))-(1<<8)` moves a squashed alien to y≈0 (it is then deleted as off-map) | applied to `dy` | C porter marked it "dodgy"; a random ±1 px/frame jitter is the evident intent |
+| 2 | projectile.c `makeproj/foundmakeproj` | `projctr = r8` can exceed 32 and later scans beyond the 32-entry table (UB) | `projctr = (index+1) % 32` | original assembly intent (commented-out loop45 in the C) |
+| 3 | alien.c `wipealtab` | clears `_alno+1` entries (one past the array) | table has 513 entries | memory safety, same behaviour |
+| 4 | player.c `rocketblam` | reads `rockettab[192]` (one past the end) | guard entry = 0 | memory safety |
+| 5 | sound.c `sdl_music_hook` | after a non-looping sample ends, replays byte 0 (`jj = 0`) → DC/tick | silence | matches make_sound |
+| 6 | sound.c `soundclaim` | `Mix_SetPanning(c, 254-stereo, stereo)` makes stereo 0 hard-left | Archimedes convention −127..0..+127, 0 = centre | SDL port bug |
+| 7 | sound.c `soundclaimmaybe` | compares chunk volume (always 0xff) → claims only idle channels | emulated exactly (busy-until ticks) | faithful |
+| 8 | maze.c `draw_block` | calls `random()` while drawing (perturbs the game RNG) | deterministic hash of (cell, framectr) | rendering must not change gameplay; renderer runs on another thread |
+| 9 | asylum.c music slots | title music slot 1 is overwritten by the zone's Music2 after the first game | title music always used for menus | SDL port artefact |
+| 10 | maze.c blocks 240..253 | sleeping-alien markers; never on screen in the original | never drawn | larger views would otherwise reveal them (Psyche has a sprite at 240) |
+| 11 | asylum.c game loop | 25 Hz `rate50` path (gearchange = 0) | not ported, always 50 Hz | modern hardware; original default on ARM3+ |
+| 12 | alien.c `moval`, `al_sleepcheck`, maze.c `wakeupal/screenwakeup` | plot range, wake-up box and 512-px sleep range sized for a 288x192 window | all grown with the visible window (larger views: aspect ratio and view scale; identical at 320x256) | modern monitors: aliens on screen must be plotted, wakeable and stay awake |
+| 13 | vdu.c `initialize_sprites` | pixel index `y*wid+x` checked linearly | same (x may spill into next row) | faithful |
+| 14 | sound.c `bidforsound` | caps volume by `options.soundvol` | master volume in the host | modern volume control |
+| 15 | menus.c `prelude` | ESC quits the program immediately | ESC → quit confirmation | prevents quitting by accident |
+| 16 | keyboard.c | SDL1 key numbers 307/308 compared against SDL2 scancodes | any key continues | SDL port bug |
+| 17 | bullet.c `makebul` | the wrap-around search sets `bulctr = i` and then tests `i == bulctr`, so it reports failure although a free slot was found | the found slot is used | C-port translation bug (original intent) |
+| 18 | player.c `plmove` (head-cell platform branch) | calls `plplattoobj()` (which ends in `playerfire()`) and then falls through to `playerfire()` again: the player fires twice that tick | returns after `plplattoobj` | the C port already returns after the other two `plplattoobj` calls; one fire per tick is the original intent |
+| 19 | player.c `reinitplayer/getvars` | `pladr1 = NULL` (windcheck could dereference NULL) | sentinel offset that reads as 0 | memory safety |
+| 20 | alien.c `colcheck` | the previous frame's platform table can point at the checking alien's own (reused) slot, so `al` and `r6` alias | aliasing reproduced (copy kept in sync with the slot) | faithful |
+| 21 | alien.c `moval` (larger views only) | alien11/12 call `random()` for their sprite frame only when plotted | more aliens are "plotted" in larger views, so the RNG sequence differs from 320x256 play (still deterministic) | consequence of #12 |
+| 22 | C expressions with several `random()` calls (deletepoint, alfire, makescoreobj, electrocute) | evaluation order unspecified in C | evaluated left to right everywhere | determinism |
+| 23 | sound.c `make_sound` / `sdl_music_hook` | 22.05 kHz, truncated sinc (±32 / ±4 taps), per-tap `Sint16` truncation with wrap-around | 48 kHz Lanczos-8 kernel, float mixing, final saturation; loudness within ±1.3 % of the C formula | high-quality audio; no wrap-around clicks |
+| 24 | sound.c music sequencer | a corrupt pattern loops forever / runs off the buffer; tempo 0 divides by zero | pattern end forced after 15000 pairs; tempo <= 0 → 0x1000 | robustness only (real tunes never hit it) |
+| 25 | asylum.c `loadgame` | missing file silently ignored; any bytes accepted | missing/short/corrupt save (mentalzone not 1..3, missing neuron) is rejected and the zone menu is shown again | robustness |
+| 26 | asylum.c `savegame` | saving right after touching a neuron stores the new `plzone` with the old board (inconsistent file) | a pending zone switch is completed before saving | robustness |
+| 27 | asylum.c `mainrestart` | restarts the zone music after every death / zone switch / resume | the music only changes when the track changes (no restart after each death) | less repetitive; title music in menus after an abandoned game |
+| 28 | menus.c `readopt` | polls whether Fire is held | menus react to key-down events (a Fire held over from the game no longer skips the high-score table); arrows/mouse/gamepad navigation added | modern input |
+| 29 | menus.c `getzone` | Fire/'0' set `options.mentalzone = 0` | Fire/'0' leaves the zone menu; zone 4 (saved game) is never persisted | C bug |
+| 30 | menus.c `choosekeys` | ESC stores key 0 and continues | ESC cancels and keeps the old keys; F11/Alt+Enter cannot be bound (display-mode toggle) | C bug / modern convenience |
+| 31 | menus.c `choosestick`, `tunesound`, `tunevolume`, `tunespeed` | Archimedes joystick numbers, 7 sound-system choices, doubling volume steps, SDL/OpenGL video options | gamepad reminder; 3 sound choices; 11 linear volume steps with a test sound; modern video options (display mode, window aspect and resolution, view scale, smooth motion, vsync; see #39, #40); language menu | modern platform |
+| 32 | keyboard.c `zonecheatread` | reads a digit typed ahead while the level loaded from disc | in cheat mode a 1-second window after Fire accepts '0'..'8' | no disc loading time any more |
+| 33 | vdu.c `texthandler` | a message is drawn in the frame its counter reaches 0; messages created later in the frame appear next frame | frames are built after the whole tick (one-tick shift) | rendering only |
+| 34 | asylum.c `options.explospeed`, `gearchange` | speed tweaks for slow Archimedes models | fixed to the fast-machine values (1 / 50 Hz) | modern hardware |
+| 35 | maze.c `fuelairproc` | one pass may append up to 4 entries past `_fueltablim`; for table 0 they land in table 1 (the other table), for table 1 past the array (UB) | each table has 4 private guard entries; overflow entries are read on the next pass of the same table | memory safety |
+| 36 | menus.c `prelude` (cheat mode) | Left Alt **and** (Right Alt or AltGr/Mode) must be held with the middle mouse button | either Alt key plus the middle mouse button | on Korean/Japanese/European layouts the right Alt key is Hangul/AltGr and often not reported as Alt, which would make the cheat unreachable |
+| 37 | menus.c `choosecontrol`, `tunegame` | leaf screens (define keys, joystick reminder, sound/volume/video) return straight to the Options menu | they return to the menu they were opened from (ESC steps back one level) | modern menu navigation; the key bindings list stays visible after redefining keys |
+| 38 | menus.c `choosekeys` | "Press Key For Up" | "Press Key For Jump" (binding list label "Jump") in every language | the up control is the jump in this game |
+| 39 | menus.c `tunespeed`, vdu.c `vduread` (`ScreenSize`, `ScreenScale`) | OpenGL-only "320 x 256 … 1280 x 1024" window size cycle and an experimental "Half scale" view (more world in the same window) | window aspect 4:3 … 21:9 and every standard resolution of it up to the monitor's size (cycling like the original size option); view scale 1.0x … 3.0x: the game draws 256 x scale lines, so a higher scale shows more of the world (the half-scale idea generalized, at a consistent pixel size for frame, HUD and world); the picture always fills the window or screen (layout for the actual size, no black bars, no plain stretching) | modern monitors |
+| 40 | menus.c `tunespeed` | full-screen toggle only | display mode *Windowed* → *Borderless* → *Full Screen* (exclusive), cycling; F11 / Alt+Enter switch between *Windowed* and the last full-screen mode | modern desktop |
+| 41 | vdu.c `message`, `message_scroll`, `deathmessage`, `endgamemessage`, menus.c `escapehandler` | positions inside the 288x192 window; x > 1000 encodes the lifetime; fixed 400-tick lifetimes; pause lines start 256 px off-screen | game-window messages are placed from the window size without the encoding and live until they have left a larger window (400 ticks at 288x192); the pause lines start outside a larger screen and still land after 64 ticks | larger views (the encoding would misread large coordinates, texts would vanish mid-window or pop in on screen) |
+| 42 | vdu.c `mazeplot` (midground) | parallax anchor `xblocks/2+1`, `yblocks/2+1` (10/7 for 18x12 blocks) | the anchor uses the visible window's block counts | the midground keeps its place next to the walls at every size (identical at 288x192) |
+| 43 | maze.c `screenwakeup` | the screen wake-up box (40x32 blocks) lies inside the sleep range; the perimeter wake-up only scans the box edge | in larger views the screen box grows with the view but never past the grown sleep range, and a view that grew mid-game (window, mode or scale change, a save loaded in a larger view) wakes its whole box once | identical at 320x256; otherwise aliens inside the larger box would sleep until the player walked past them, or wake only to fall asleep on their first update |
+| 44 | alien.c `saveal` | the store holds 77 objects; more cannot be awake in a 288x192 window | when a larger view keeps more objects awake than the store holds, objects that cannot sleep and the aliens nearest the player are stored; the rest go back to sleep as board markers (on neuron entry in the live board, in a save game in the saved board) | larger views (the original would silently lose them) |

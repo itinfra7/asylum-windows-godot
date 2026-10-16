@@ -1,0 +1,27 @@
+[workspace]
+resolver = "2"
+members = ["asylum-core", "asylum-gdext"]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+authors = ["itinfra7"]
+
+# The original C/ARM game relies on two's-complement wrap-around in many places.
+# Integer overflow is therefore defined as wrapping in every profile.
+[profile.dev]
+overflow-checks = false
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.release]
+overflow-checks = false
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "unwind"
+strip = "symbols"
+debug = false

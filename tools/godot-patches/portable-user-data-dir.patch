@@ -1,0 +1,18 @@
+diff --git a/platform/windows/os_windows.cpp b/platform/windows/os_windows.cpp
+index 1cf034b..98aa6ae 100644
+--- a/platform/windows/os_windows.cpp
++++ b/platform/windows/os_windows.cpp
+@@ -2506,7 +2506,13 @@ String OS_Windows::get_system_dir(SystemDir p_dir, bool p_shared_storage) const
+ }
+ 
+ String OS_Windows::get_user_data_dir(const String &p_user_dir) const {
++#ifndef TOOLS_ENABLED
++	// Asylum portable build: user:// is the "userdata" folder next to the executable, so the
++	// exported game leaves no traces in %APPDATA%.
++	return get_executable_path().get_base_dir().path_join("userdata").replace_char('\\', '/');
++#else
+ 	return get_data_path().path_join(p_user_dir).replace_char('\\', '/');
++#endif
+ }
+ 
+ String OS_Windows::expand_path(const String &p_path) const {

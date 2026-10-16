@@ -1,0 +1,15 @@
+# Build outputs
+/rust/target/
+/game/.godot/
+/game/bin/*.dll
+/game/bin/*.pdb
+/dist/
+/build/
+/tools/godot-template/
+
+# Local Godot 4.7.2 editor (not redistributed; see README, or tools/build.ps1 -Godot <path>)
+/Godot_v4.7.2-stable_win64.exe/
+
+# Python
+__pycache__/
+*.pyc

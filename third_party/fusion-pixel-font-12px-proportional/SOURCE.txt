@@ -1,0 +1,2 @@
+Fusion Pixel Font 12px proportional BDF, release 2026.09.25, https://github.com/TakWolf/fusion-pixel-font (SIL OFL 1.1, no Reserved Font Names). Input of tools/subset_fonts.py; only the generated subsets in game/fonts/ are shipped.
+LICENSES/ holds the licenses of the fonts Fusion Pixel Font is built from, copied from the upstream repository at tag 2026.09.25: ark-pixel/OFL.txt (Ark Pixel Font, TakWolf, OFL 1.1; upstream assets/fonts/ark-pixel/OFL.txt) and galmuri/LICENSE.txt (Galmuri 2.40.4, Lee Minseo, OFL 1.1; upstream assets/fonts/galmuri/LICENSE.txt).

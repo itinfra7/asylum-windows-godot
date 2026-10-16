@@ -1,0 +1,6 @@
+# Link the C runtime statically into asylum_gdext.dll, so the game also runs on Windows
+# installations without the Visual C++ Redistributable (Asylum.exe links it statically too).
+# tools/build.ps1 passes these flags itself (CARGO_ENCODED_RUSTFLAGS) together with path
+# remapping; keep both in sync.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

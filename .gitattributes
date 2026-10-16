@@ -1,0 +1,15 @@
+* text=auto
+# applied with git apply to the LF-only Godot source tree
+*.patch text eol=lf
+# files the Godot export packs as they are: LF everywhere, so every checkout builds the same pack
+game/** text=auto eol=lf
+# original game data (files without an extension)
+game/data/** binary
+# the font release the subsets are generated from, as upstream ships it
+third_party/** text=auto eol=lf
+# upstream SDL Asylum source kept byte for byte (CRLF, Latin-1)
+reference/** -text
+# vendored sources and font releases: excluded from the language statistics
+reference/** linguist-vendored
+third_party/** linguist-vendored
+licenses/** linguist-documentation

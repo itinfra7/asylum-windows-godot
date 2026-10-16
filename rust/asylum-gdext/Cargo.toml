@@ -1,0 +1,15 @@
+[package]
+name = "asylum-gdext"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Godot 4 GDExtension binding for Asylum"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+asylum-core = { path = "../asylum-core" }
+# Default features = full class codegen (the minimal set lacks AudioServer, Image, MultiMesh, ...).
+godot = { version = "=0.5.5", features = ["api-4-7", "lazy-function-tables"] }

@@ -1,0 +1,31 @@
+diff --git a/platform/windows/display_server_windows.cpp b/platform/windows/display_server_windows.cpp
+index e821786..0236879 100644
+--- a/platform/windows/display_server_windows.cpp
++++ b/platform/windows/display_server_windows.cpp
+@@ -218,6 +218,15 @@ Vector2i _logical_to_physical(const Vector2i &p_point) {
+ }
+ 
+ Vector2i DisplayServerWindows::_get_screen_expand_offset(int p_screen) const {
++#if defined(GLES3_ENABLED)
++	// asylum-godot: the native WGL path blits with a bottom-left origin and does not know about
++	// the extra pixels, so expanding the window downwards shifts the picture by them (top rows
++	// unpainted, bottom rows clipped). Expanding to the right only leaves unused columns that the
++	// window region clips; the window rect still differs from the monitor rect.
++	if (gl_manager_native) {
++		return Vector2i(2, 0);
++	}
++#endif
+ 	Vector2i p1 = _logical_to_physical(screen_get_position(p_screen));
+ 	Vector2i p2 = _logical_to_physical(screen_get_position(p_screen) + screen_get_size(p_screen));
+ 
+@@ -7925,7 +7934,9 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Dis
+ 	}
+ 
+ 	if (OS::get_singleton()->is_hidpi_allowed()) {
+-		SetProcessDpiAwareness(PROCESS_SYSTEM_DPI_AWARE);
++		// asylum-godot: per-monitor aware (V1), so sizes are physical pixels on every monitor and
++		// Windows never bitmap-stretches the window on a monitor with another scale factor.
++		SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
+ 	}
+ 
+ 	HMODULE comctl32 = LoadLibraryW(L"comctl32.dll");

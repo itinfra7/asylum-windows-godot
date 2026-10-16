@@ -1,0 +1,9 @@
+[package]
+name = "asylum-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Engine-independent core of Asylum (game logic, asset decoding, audio synthesis, rendering lists)"
+
+[dependencies]

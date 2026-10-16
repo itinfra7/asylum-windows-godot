@@ -1,0 +1,125 @@
+key,en,ko,zh_CN
+PRELUDE_DP,Digital Psychosis,Digital Psychosis,Digital Psychosis
+PRELUDE_PRESENTS,Presents,제공,荣誉出品
+PRELUDE_STORY,Young Sigmund has a\nFew problems. Can\nyou help him find\nthe rogue brain cells\nin his mind and shut\nThem down?,꼬마 지그문트에게\n골칫거리가 좀 생겼어요.\n머릿속에서 날뛰는\n불량 뇌세포들을 찾아\n몽땅 꺼 버릴 수 있게\n도와줄래요?,小西格蒙德最近\n遇上了点小麻烦。\n你能潜入他的脑海\n帮他揪出造反的脑细胞\n把它们统统关掉吗？
+PRELUDE_PRESS,PRESS SPACE,스페이스 키를 누르세요,按空格键开始
+PRELUDE_CHEAT,Cheat Mode!!!,치트 모드!!!,作弊模式！！！
+PRELUDE_CHEAT_WEAPONS,"F1, F2 Get Weapons","F1, F2 - 무기 획득","F1, F2 - 获得武器"
+PRELUDE_CHEAT_STRENGTH,F3 - Restore Strength,F3 - 체력 회복,F3 - 恢复体力
+PRELUDE_FUN,HAVE FUN !!!,신나게 즐기세요!!!,玩个痛快！！！
+LOAD_WAIT,Please Wait,잠시만 기다려 주세요,请稍候
+LOAD_FILES,Loading Game files,게임 파일을 불러오는 중,正在加载游戏文件
+ERR_LOAD_1,A game file could not,게임 파일을,某个游戏文件
+ERR_LOAD_2,be loaded. Program,불러오지 못했습니다.,无法加载。
+ERR_LOAD_3,Must exit now.,프로그램을 종료합니다.,程序将立即退出。
+MENU_OPTIONS,Options,옵션,选项
+MENU_DEFINE_CONTROLS,Define Controls,조작 설정,键位设置
+MENU_TUNE_GAME,Tune Game Options,게임 설정,游戏设置
+MENU_CHOOSE_ZONE,Choose Mental Zone,정신 구역 선택,选择精神区域
+MENU_SAVE_POSITION,Save Position,게임 저장,保存进度
+MENU_POSITION_SAVED,Position Saved,저장 완료!,进度已保存
+MENU_FIRE_PLAY,Fire - Play,발사 - 게임 시작,射击 - 开始游戏
+MENU_FIRE_RETURN,Fire - Return,발사 - 게임으로 돌아가기,射击 - 返回游戏
+MENU_ESC_EXIT,ESC - Exit,ESC - 나가기,ESC - 返回
+MENU_QUIT_TITLE,Quit Asylum?,Asylum을 종료할까요?,要退出 Asylum 吗？
+MENU_QUIT_YES,Fire - Yes,발사 - 예,射击 - 确定
+MENU_QUIT_NO,ESC - No,ESC - 아니요,ESC - 取消
+ZONE_TITLE_1,Choose which,어느 정신 구역으로,要闯哪个
+ZONE_TITLE_2,mental zone,뛰어들까요?,精神区域？
+ZONE_EGO,Ego,자아,自我
+ZONE_PSYCHE,Psyche,프시케,心灵
+ZONE_ID,Id,이드,本我
+ZONE_SAVED,Saved Game,게임 불러오기,读取进度
+ZONE_ID_LOCK_1,To play the id,이드에 들어가려면,想进入本我区域
+ZONE_ID_LOCK_2,you need to complete,먼저 자아를,你得先打通
+ZONE_ID_LOCK_3,the ego first.,정복해야 해요.,自我区域才行。
+CTRL_TITLE,Controls,조작 설정,键位设置
+CTRL_KEYBOARD,Keyboard,키보드,键盘
+CTRL_GAMEPAD,Gamepad,게임패드,手柄
+CTRL_DEFAULTS,Reset Keys,키 설정 초기화,恢复默认键位
+KEY_PRESS_LEFT,Press Key For Left,왼쪽에 지정할 키를 누르세요,请按下新的向左键
+KEY_PRESS_RIGHT,Press Key For Right,오른쪽에 지정할 키를 누르세요,请按下新的向右键
+KEY_PRESS_UP,Press Key For Jump,점프에 지정할 키를 누르세요,请按下新的跳跃键
+KEY_PRESS_DOWN,Press Key For Down,아래쪽에 지정할 키를 누르세요,请按下新的向下键
+KEY_PRESS_FIRE,Press Key to Fire,발사에 지정할 키를 누르세요,请按下新的射击键
+KEY_LEFT,Left,왼쪽,向左
+KEY_RIGHT,Right,오른쪽,向右
+KEY_UP,Jump,점프,跳跃
+KEY_DOWN,Down,아래쪽,向下
+KEY_FIRE,Fire,발사,射击
+PAD_TITLE,Reminder,게임패드 안내,温馨提示
+PAD_JUMP,"To jump, you can",점프하는 방법,跳跃有两种方式
+PAD_JUMP_1,Use Stick Up,스틱 위로 밀기,把摇杆往上推
+PAD_JUMP_2,Use Button A,A 버튼 누르기,按 A 键
+PAD_FIRE,Button X or B - Fire,X 또는 B 버튼 - 발사,X 或 B 键 - 射击
+PAD_MENU,Start - Menu,Start - 메뉴,Start - 菜单
+TUNE_TITLE,Tune Game,게임 설정,游戏设置
+TUNE_SOUND,Sound System,사운드 설정,声音设置
+TUNE_VOLUME,Sound Volume,음량 조절,音量调节
+TUNE_VIDEO,Video System,화면 설정,画面设置
+TUNE_LANGUAGE,Language,언어 설정,语言设置
+SOUND_TITLE,Tune Sound,사운드 설정,声音设置
+SOUND_NONE,No Sound,사운드 없음,静音
+SOUND_FX,Effects Only,효과음만,仅音效
+SOUND_FX_MUSIC,Effects and Music,효과음과 음악,音效和音乐
+VOL_TITLE,Change volume,음량 조절,音量调节
+VOL_FX_UP,Louder effects,효과음 크게,音效调大
+VOL_FX_DOWN,Quieter effects,효과음 작게,音效调小
+VOL_MUSIC_UP,Louder music,음악 크게,音乐调大
+VOL_MUSIC_DOWN,Quieter music,음악 작게,音乐调小
+VOL_FX_LEVEL,SFX,효과음,音效
+VOL_MUSIC_LEVEL,Music,음악,音乐
+VIDEO_TITLE,Tune Video,화면 설정,画面设置
+VIDEO_MODE,Mode,화면 모드,显示模式
+VIDEO_MODE_WINDOW,Windowed,창 모드,窗口模式
+VIDEO_MODE_BORDERLESS,Borderless,전체 창 모드,无边框窗口
+VIDEO_MODE_FULLSCREEN,Full Screen,전체 화면,全屏
+VIDEO_ASPECT,Aspect,화면비,宽高比
+VIDEO_ASPECT_MONITOR,Monitor,모니터,跟随显示器
+VIDEO_SCALE,Scale,화면 배율,画面缩放
+VIDEO_SCALE_UNIT,x,배,倍
+VIDEO_SMOOTH,Smooth Motion,부드러운 움직임,运动平滑
+VIDEO_VSYNC,Vsync,수직 동기화,垂直同步
+LANG_TITLE,Language,언어 설정,语言设置
+LANG_EN,English,English,English
+LANG_KO,한국어,한국어,한국어
+LANG_ZH,简体中文,简体中文,简体中文
+ESC_INTERRUPTED,• Game Interrupted •,• 게임 일시 정지 •,• 游戏暂停 •
+ESC_SELECT,Please select action,무엇을 할까요?,请选择操作
+ESC_ABANDON,ESC - Abandon game,ESC - 게임 포기,ESC - 放弃本局
+ESC_LOSE_LIFE,Q    - lose this life,Q    - 목숨 하나 버리기,Q    - 放弃这条命
+ESC_RETURN,R    - Return to Game,R    - 게임으로 돌아가기,R    - 返回游戏
+ESC_OPTIONS,O    - Alter Options,O    - 옵션 변경,O    - 更改选项
+HS_TITLE,Zone High Scores,구역 최고 점수,本区域高分榜
+HS_PRESS_FIRE,press fire,발사 버튼을 누르세요,按射击键继续
+MSG_LETS_GO,Let's Go!,시작!,冲啊！
+MSG_SNUFFED,• Snuffed It! •,• 꼴까닥! •,• 一命呜呼！ •
+MSG_GAME_OVER,-  GAME OVER  -,-  게임 오버  -,-  游戏结束  -
+MSG_POTION,A potion and Skull!,물약에 해골까지!,药水加骷髅！
+MSG_RISE,Rise from the dead!,무덤에서 되살아나라!,起死回生！
+MSG_BONUS_10K,Bonus 10000,보너스 10000,奖励 10000
+MSG_BONUS_20K,Bonus 20000,보너스 20000,奖励 20000
+MSG_BONUS_30K,Bonus 30000,보너스 30000,奖励 30000
+MSG_BONUS_50K,Bonus 50000,보너스 50000,奖励 50000
+MSG_BONUS_100K,Bonus 100000,보너스 100000,奖励 100000
+MSG_WELL_DONE,WELL DONE!,잘했어!,干得漂亮！
+MSG_COMPLETED,You have completed,드디어 해냈어!,你成功打通了
+MSG_THE_GAME,The game!!!,게임 완전 정복!!!,整个游戏！！！
+MSG_THIS_ZONE,This zone!,이 구역 정복!,这个区域！
+MSG_ID_UNLOCKED,The Id is now open!,이제 이드 구역이 열렸어요!,本我区域解锁啦！
+WEAPON_0,Standard Mini-Gun,기본 미니건,标准迷你机枪
+WEAPON_1,Mini-Gun with spray,확산 미니건,散射迷你机枪
+WEAPON_2,Five Stream Gun,다섯 갈래 미니건,五路齐射枪
+WEAPON_3,Fast 5 way - zap those nasties!,고속 5방향 - 못된 녀석들을 싹 지져 버려!,高速五向枪 - 把坏蛋统统突突了！
+WEAPON_4,A weird one!,이건 좀 희한한데!,这把有点邪门！
+WEAPON_5,Three Way Blitzer,3방향 블리츠건,三向闪击枪
+WEAPON_6,Blitzing Five Way - Lets Party,5방향 블리츠건 - 파티 시작이다!,五向闪击枪 - 嗨翻全场！
+WEAPON_7,MegaBlam 5000 Mini-Gun!!!!,MegaBlam 5000 미니건!!!!,MegaBlam 5000 迷你机枪！！！！
+WEAPON_8,Standard Rocket Launcher,기본 로켓 런처,标准火箭筒
+WEAPON_9,Twin Rocket Launcher,쌍발 로켓 런처,双管火箭筒
+WEAPON_10,Quad Launcher - Open Fire!,4연장 런처 - 사격 개시!,四管火箭筒 - 火力全开！
+WEAPON_11,Launcher with starburst,스타버스트 런처,星爆火箭筒
+WEAPON_12,Twin rockets with starburst - let's see some fireworks!,스타버스트 쌍발 로켓 - 불꽃놀이 한번 보자!,星爆双管火箭筒 - 来场烟花秀吧！
+WEAPON_13,Quad Launcher with starburst! Arrgghhhh!!!!,스타버스트 4연장 런처! 우오오오오!!!!,星爆四管火箭筒！ 嗷嗷嗷嗷！！！！
+WEAPON_14,A Pot Pourri Rocket Launcher - mix and match!,짬뽕 로켓 런처 - 이것저것 섞어 쏴!,什锦火箭筒 - 随心混搭！
+WEAPON_15,MegaBlam Rocket Launcher!!!!  Six Shots Only!,MegaBlam 로켓 런처!!!!  딱 여섯 발!,MegaBlam 火箭筒！！！！只有六发！
